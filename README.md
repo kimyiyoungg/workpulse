@@ -1,4 +1,4 @@
-# React + TypeScript + Vite
+# WorkPulse : 업무 효율성을 높여주는 사내 정보 공유 플랫폼
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
