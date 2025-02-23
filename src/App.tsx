@@ -6,6 +6,10 @@ import Login from "./routes/login";
 import CreateAccount from "./routes/create-account";
 import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
+import { useEffect, useState } from "react";
+import LodingScreen from "./components/loding-screen";
+import { auth } from "./firebase";
+import styled from "styled-components";
 
 const router = createBrowserRouter([
   {
@@ -41,17 +45,31 @@ const GlobalStyles = createGlobalStyle`
     box-sizing:border-box;
   }
   body{
-    background-color: black;
-    color: white;
+    background-color: white;
+    color: black;
   }
 `;
 
+const Wrapper = styled.div`
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+`;
+
 function App() {
+  const [isLoding, setLoding] = useState(true);
+  const init = async() => {
+    //firebase 로딩 : 로그인 여부와 유저가 누구인지 체크하는 동안
+    await auth.authStateReady(); //Firebase가 쿠키와 토큰을 읽고 백엔드와 소통해서 로그인 여부를 확인하는 동안 기다림
+    //setTimeout(() => setLoding(false), 2000)
+    setLoding(false);
+  }
+  useEffect(()=> {init()},[])
   return (
-    <>
+    <Wrapper>
       <GlobalStyles/>
-      <RouterProvider router = {router}/>
-    </>
+      {isLoding ?<LodingScreen/> : <RouterProvider router = {router}/> } 
+    </Wrapper>
   );
 }
 
