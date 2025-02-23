@@ -1,5 +1,8 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { auth } from "../firebase";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth/cordova";
+import { useNavigate } from "react-router-dom";
 
 const Wrapper = styled.div`
   height: 100%;
@@ -47,6 +50,7 @@ const Error = styled.span`
 `;
 
 export default function CreateAccount(){
+    const navigate = useNavigate();
     const [isLoding, setLoding] = useState(false);
     const [userName, setUserName] = useState("");
     const [userEmail, setUserEmail] = useState("");
@@ -74,13 +78,23 @@ export default function CreateAccount(){
         }
     };
 
-    const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
+        
+        if(isLoding ||userName === "" || userEmail === "" || userPhone === "" || userId === "" || userPassword === "" || userBirth === "") return;
         try {
-        // 계정 만들기
-        // 사용자 프로필의 이름 지정
-        // 홈페이지로 리디렉션
+            setLoding(true);
+            // 계정 만들기
+            const credentials = await createUserWithEmailAndPassword(auth, userEmail, userPassword);
+            console.log(credentials.user);
+            // 사용자 프로필의 이름 지정
+            await updateProfile(credentials.user,{
+                displayName: userName,}
+            );
+            // 홈페이지로 리디렉션
+            navigate("/");
+        
+        
         } catch (e) {
          // setError     
         } finally{
