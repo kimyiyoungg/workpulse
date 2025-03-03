@@ -4,7 +4,7 @@ import { auth } from "../firebase";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { FirebaseError } from "firebase/app";
-import { Form, Input, Switcher, Title, Wrapper, Error } from "../components/auth-components";
+import { Form, Input, Switcher, OurLogo, Wrapper, Error } from "../components/auth-components";
 import GoogleButton from "../components/google-btn";
 
 
@@ -52,8 +52,12 @@ export default function Login(){
 
     return (
     <Wrapper>
-        <Title> 로고 넣기 </Title>
+
+        {/* 주임님 중앙정렬 어케해 */}
+        <Form><OurLogo src="/workpulse-logo.svg"/></Form>
+        
         <Form onSubmit={onSubmit}>
+            
             <Input onChange={onChange} name="userEmail" value={userEmail} placeholder="이메일" type="email" required/>
             <Input onChange={onChange} name="userPassword" value={userPassword} placeholder="비밀번호" type="password" required/>
             <Input type="submit" value={isLoding ? "Loading..." : "로그인"} />
