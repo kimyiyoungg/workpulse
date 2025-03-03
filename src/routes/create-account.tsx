@@ -1,53 +1,63 @@
 import { useState } from "react";
-import styled from "styled-components";
+// import styled from "styled-components";
 import { auth } from "../firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth/cordova";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { FirebaseError } from "firebase/app";
+import { Form, Input, Switcher, Title, Wrapper, Error } from "../components/auth-components";
 
-const Wrapper = styled.div`
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  width: 420px;
-  padding:50px 20px;
+// const Wrapper = styled.div`
+//   height: 100%;
+//   display: flex;
+//   flex-direction: column;
+//   width: 420px;
+//   padding:50px 20px;
 
-`;
+// `;
 
-const Title = styled.h1`
-  font-size: 20px;
-  font-weight: 900;
-`;
+// const Title = styled.h1`
+//   font-size: 20px;
+//   font-weight: 900;
+// `;
 
-const Form = styled.form`
-  margin-top: 30px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  width: 100%;
-`;
+// const Form = styled.form`
+//   margin-top: 30px;
+//   margin-bottom: 10px;
+//   display: flex;
+//   flex-direction: column;
+//   gap: 20px;
+//   width: 100%;
+// `;
 
-const Input = styled.input`
-  padding: 10px 25px;
-  border-radius: 5px;
-  border: solid gray;
-  border-width: 2px 2px 2px 2px ;
-  width: 100%;
-  font-size:16px;
-  &[type="submit"]{
-    background-color:black;
-    color: white;
-    cursor: pointer;
-    font-size:16px;
-    &:hover{
-      opacity: 0.8
-    }
-    }
-`;
+// const Input = styled.input`
+//   padding: 10px 25px;
+//   border-radius: 5px;
+//   border: solid gray;
+//   border-width: 2px 2px 2px 2px ;
+//   width: 100%;
+//   font-size:16px;
+//   &[type="submit"]{
+//     background-color:black;
+//     color: white;
+//     cursor: pointer;
+//     font-size:16px;
+//     &:hover{
+//       opacity: 0.8
+//     }
+//     }
+// `;
 
-const Error = styled.span`
-  font-weight:600;
-  color:tomato;
-`;
+// const Error = styled.span`
+//   font-weight:600;
+//   color:tomato;
+// `;
+
+// const Switcher = styled.span`
+//   margin-top: 20px;
+//   a {
+//     color: #1d9bf0;
+//   }
+// `;
 
 export default function CreateAccount(){
     const navigate = useNavigate();
@@ -80,6 +90,7 @@ export default function CreateAccount(){
 
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        setError("");
         
         if(isLoding ||userName === "" || userEmail === "" || userPhone === "" || userId === "" || userPassword === "" || userBirth === "") return;
         try {
@@ -96,7 +107,11 @@ export default function CreateAccount(){
         
         
         } catch (e) {
-         // setError     
+            if( e instanceof FirebaseError){
+                // console.log(e.code, e.message);
+                setError(e.message);
+
+            }
         } finally{
             setLoding(false);
         }
@@ -118,5 +133,9 @@ export default function CreateAccount(){
             <Input type="submit" value={isLoding ? "Loading..." : "가입하기"} />
         </Form>
         {error !== "" ? <Error>{error}</Error> : null}
+        <Switcher>
+            이미 계정이 있으신가요?{" "}
+            <Link to="/login">로그인 &rarr;</Link>
+        </Switcher>
     </Wrapper>);
 }
