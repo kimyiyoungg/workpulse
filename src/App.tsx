@@ -10,11 +10,16 @@ import { useEffect, useState } from "react";
 import LodingScreen from "./components/loding-screen";
 import { auth } from "./firebase";
 import styled from "styled-components";
+import ProtectRoute from "./components/protected-route";
 
 const router = createBrowserRouter([
   {
     path:"/",
-    element: <Layout />,
+    element: (
+      <ProtectRoute>
+        <Layout />
+      </ProtectRoute>
+    ),
     children:[
       {
         path: "",
