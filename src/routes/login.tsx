@@ -5,6 +5,8 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfi
 import { Link, useNavigate } from "react-router-dom";
 import { FirebaseError } from "firebase/app";
 import { Form, Input, Switcher, Title, Wrapper, Error } from "../components/auth-components";
+import GoogleButton from "../components/google-btn";
+
 
 
 
@@ -57,9 +59,15 @@ export default function Login(){
             <Input type="submit" value={isLoding ? "Loading..." : "로그인"} />
         </Form>
         {error !== "" ? <Error>{error}</Error> : null}
+     
+        
+
+        <GoogleButton></GoogleButton>
+
         <Switcher>
             계정이 존재하지 않으신가요?{" "}
             <Link to="/create-account">가입하기 &rarr;</Link>
         </Switcher>
+
     </Wrapper>);
 }
