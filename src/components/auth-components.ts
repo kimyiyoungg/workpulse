@@ -9,7 +9,7 @@ export const Wrapper = styled.div`
 
 `;
 
-export const Title = styled.h1`
+export const Title = styled.form`
   font-size: 20px;
   font-weight: 900;
 `;
@@ -51,4 +51,11 @@ export const Switcher = styled.span`
   a {
     color: #1d9bf0;
   }
+`;
+
+export const OurLogo = styled.img`
+height: 150px;
+width: 200px;
+margin-bottom: 20px;
+position: relative;
 `;
