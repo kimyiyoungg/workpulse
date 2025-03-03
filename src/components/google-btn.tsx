@@ -19,10 +19,14 @@ const Button = styled.span`
   cursor: pointer;
   `;
 
+  const Logo = styled.img`
+  height: 25px
+  `;
 
 export default function GoogleButton(){
 
     const navigate = useNavigate();
+
 
     const onClick = async () => {
         try {
@@ -38,6 +42,7 @@ export default function GoogleButton(){
 
     return (
       <Button onClick={onClick}>
+        <Logo src="/google-logo.svg"/>
         Google로 로그인
       </Button>
     );
