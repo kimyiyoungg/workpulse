@@ -12,6 +12,7 @@ import { auth } from "./firebase";
 import styled from "styled-components";
 import ProtectedRoute from "./components/protected-route";
 import StartHome from "./components/startHome";
+import Memo from "./routes/memo";
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
   {
     path: "/create-account",
     element: <CreateAccount />,
+  },
+  {
+    path: "/memo",
+    element: <Memo />,
   },
 ]);
 
