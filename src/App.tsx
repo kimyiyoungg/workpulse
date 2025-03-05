@@ -11,37 +11,39 @@ import LodingScreen from "./components/loding-screen";
 import { auth } from "./firebase";
 import styled from "styled-components";
 import ProtectedRoute from "./components/protected-route";
+import StartHome from "./components/startHome";
 
 const router = createBrowserRouter([
   {
-    path:"/",
+    path: "/",
     element: (
       <ProtectedRoute>
         <Layout />
       </ProtectedRoute>
     ),
-    children:[
+    children: [
       {
         path: "",
         element: <Home />,
       },
       {
-        path:"profile",
-        element:<Profile/>,
-      }
-    ]
+        path: "profile",
+        element: <Profile />,
+      },
+    ],
   },
   {
     path: "/login",
-    element:<Login />
+    element: <Login />,
   },
   {
-    path:"/create-account",
-    element:<CreateAccount />
-
-  }
-
-
+    path: "/startHome",
+    element: <StartHome />,
+  },
+  {
+    path: "/create-account",
+    element: <CreateAccount />,
+  },
 ]);
 
 const GlobalStyles = createGlobalStyle`
@@ -63,19 +65,21 @@ const Wrapper = styled.div`
 
 function App() {
   const [isLoding, setLoding] = useState(true);
-  const init = async() => {
+  const init = async () => {
     //firebase 로딩 : 로그인 여부와 유저가 누구인지 체크하는 동안
     await auth.authStateReady(); //Firebase가 쿠키와 토큰을 읽고 백엔드와 소통해서 로그인 여부를 확인하는 동안 기다림
     //setTimeout(() => setLoding(false), 2000)
     setLoding(false);
-  }
-  useEffect(()=> {init()},[])
+  };
+  useEffect(() => {
+    init();
+  }, []);
   return (
     <Wrapper>
-      <GlobalStyles/>
-      {isLoding ?<LodingScreen/> : <RouterProvider router = {router}/> } 
+      <GlobalStyles />
+      {isLoding ? <LodingScreen /> : <RouterProvider router={router} />}
     </Wrapper>
   );
 }
 
-export default App
+export default App;
