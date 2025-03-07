@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { addDoc, collection } from "firebase/firestore";
+import { memo, useState } from "react";
 import { styled } from "styled-components";
+import { auth, db } from "../firebase";
 
 const Form = styled.form`
     display: flex;
@@ -57,7 +59,7 @@ const SubmitBtn = styled.input`
 `;
 
 export default function Memo(){
-    const [isLoding, setLoding] = useState(false);
+    const [isLoading, setLoading] = useState(false);
     const [memoes, setMemoes] = useState("");
     const [file, setFile] = useState<File|null>(null);
     const onChange = (e:React.ChangeEvent<HTMLTextAreaElement>)=>{
@@ -69,8 +71,35 @@ export default function Memo(){
             setFile(files[0])
         };
     };
-    return (<Form>
+
+    const onSubmit = async(e:React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const user = auth.currentUser;
+        if(!user || isLoading || memoes === "" || memoes.length > 180 ) return;
+        try {
+            setLoading(true);
+            await addDoc(collection(db, "memoes"),{
+                memoes,
+                createdAt: Date.now(),
+                username: user.displayName || "Anonymous",
+                userId: user.uid,
+
+            });
+            
+        } catch (e) {
+            console.log(e);
+            
+        } finally{
+            setLoading(false);
+        }
+
+    }
+
+    return (
+      <Form onSubmit={onSubmit}>
         <TextArea 
+        rows={5}
+        maxLength={180}
           onChange={onChange}
           value={memoes}
           placeholder="메모 제목"/>
@@ -78,6 +107,6 @@ export default function Memo(){
         <AttachFileInput onChange={onFileChange} type="file" id="file" accept="image/*"/>
         <SubmitBtn 
           type="submit"
-          value={isLoding ? "Posting...":"Post Tweet"}/>
+          value={isLoading ? "Posting...":"Post Tweet"}/>
     </Form>);
 }
