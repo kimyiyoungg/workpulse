@@ -119,6 +119,6 @@ export default function Memo(){
         <AttachFileInput onChange={onFileChange} type="file" id="file" accept="image/*"/>
         <SubmitBtn 
           type="submit"
-          value={isLoading ? "Posting....":"Post Tweet"}/>
+          value={isLoading ? "Posting..":"Post Tweet"}/>
     </Form>);
 }
