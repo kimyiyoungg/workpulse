@@ -3,17 +3,19 @@ import PostMemoForm from "../components/post-memo-form";
 import Timeline from "../components/timeline";
 
 const Wrapper = styled.div`
-  display: grid;
-  gap: 50px;
-  overflow-y:scroll;
+  display: flex;
+  gap: 100px;
+//   overflow-y:scroll;
   gird-template-rows: 1fr 5fr;
+  padding: 20px;
 `;
 
 export default function Memo(){
     return (
         <Wrapper>
-            <PostMemoForm/>
             <Timeline/>
+            <PostMemoForm/>
         </Wrapper>
+        
     );
 }

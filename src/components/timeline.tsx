@@ -15,7 +15,10 @@ export interface IMemo {
     
 }
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+    overflow-y:scroll;
+    scrollbar-width: none;
+`;
 
 
 export default function Timeline(){
