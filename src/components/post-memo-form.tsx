@@ -114,7 +114,7 @@ export default function postMemoForm(){
         maxLength={180}
           onChange={onChange}
           value={memoes}
-          placeholder="메모 제목"/>
+          placeholder="메모 작성"/>
         <AttachFileButton htmlFor="file">{file?"Photo":"Add photo"}</AttachFileButton>
         <AttachFileInput onChange={onFileChange} type="file" id="file" accept="image/*"/>
         <SubmitBtn 
