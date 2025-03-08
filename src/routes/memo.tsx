@@ -1,5 +1,5 @@
 import { addDoc, collection, updateDoc } from "firebase/firestore";
-import { memo, useState } from "react";
+import { useState } from "react";
 import { styled } from "styled-components";
 import { auth, db, storage } from "../firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
