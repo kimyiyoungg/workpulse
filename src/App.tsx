@@ -11,7 +11,7 @@ import LodingScreen from "./components/loding-screen";
 import { auth } from "./firebase";
 import styled from "styled-components";
 import ProtectedRoute from "./components/protected-route";
-import StartHome from "./components/startHome";
+import StartHome from "./routes/startHome";
 import Memo from "./routes/memo";
 
 const router = createBrowserRouter([
