@@ -1,3 +1,4 @@
+import Menu from "../components/menu";
 import { auth } from "../firebase";
 
 export default function Home(){
@@ -7,7 +8,8 @@ export default function Home(){
     
     return (
       <h1>
-        <button onClick={logOut}>Log Out</button>
+        <Menu/>
+        {/* /<button onClick={logOut}>Log Out</button> */}
       </h1>
       );
 }
