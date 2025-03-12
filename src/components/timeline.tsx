@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { db } from "../firebase";
-import { collection, getDocs, orderBy, query } from "firebase/firestore";
+import { auth, db } from "../firebase";
+import { collection, getDocs, orderBy, query,where } from "firebase/firestore";
 import MemoList from "./memo-list";
 
 export interface IMemo {
@@ -23,9 +23,11 @@ const Wrapper = styled.div`
 
 export default function Timeline(){
     const [memoes, setMemo] = useState<IMemo[]>([]);
+    const user = auth.currentUser;
     const fetchMemoes = async() => {
         const memoesQuery = query(
             collection(db, "memoes"),
+            where("userId","==",user?.uid),
             orderBy("createdAt","desc")
         );
         const spanshot = await getDocs(memoesQuery);
