@@ -10,7 +10,7 @@ export default function ProtectedRoute({
   // 로그인 했는지 확인하는 코드
   const user = auth.currentUser;
   if (!user) {
-    return <Navigate to="/startHome" />;
+    return <Navigate to="starthome" />;
     // return <Navigate to="/login" />;
   }
 
