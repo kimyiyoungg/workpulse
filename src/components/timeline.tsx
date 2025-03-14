@@ -17,10 +17,11 @@ export interface IMemo {
 }
 
 const Wrapper = styled.div`
+    margin-top: 50px;
     display: flex;
     flex-direction:column;
-    overflow-y:scroll;
-    scrollbar-width: none;
+    // overflow-y:scroll;
+    // scrollbar-width: none;
 `;
 
 

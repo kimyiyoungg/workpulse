@@ -6,27 +6,32 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 const Form = styled.form`
     display: flex;
+    margin-top: 30px;
     flex-direction: column;
     gap: 10px;
     text-align: right;
+    height: 100%;
     `;
 
 const TextArea = styled.textarea`
-    border: 2px solid gray;
+    // border: 2px solid gray;
     padding: 20px;
     border-radius: 20px;
     font-size: 16px;
     color: black;
-    width: 250%;
-    height: 80%;
+    // width: 250%;
+    // height: 100%;
+    flex-grow: 1;
     resize: none;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);    
     &::placeholder {
       font-size: 16px;
     }
     &::focus {
       outline: none;
-      border-color: black
+      border-color: black;
     }
+    
 
 `;
 
