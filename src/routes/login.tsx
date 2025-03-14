@@ -6,7 +6,7 @@ import {
   signInWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { FirebaseError } from "firebase/app";
 import {
   Form,
@@ -19,6 +19,10 @@ import {
 import GoogleButton from "../components/google-btn";
 
 export default function Login() {
+  const user = auth.currentUser;
+    if (user) {
+      return <Navigate to="/" />;
+    }
   const navigate = useNavigate();
   const [isLoding, setLoding] = useState(false);
   const [userEmail, setUserEmail] = useState("");
