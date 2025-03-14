@@ -6,13 +6,16 @@ import { IoDocumentTextOutline } from "react-icons/io5";
 import { FaPenToSquare } from "react-icons/fa6";
 import { CiChat2 } from "react-icons/ci";
 import { GoHome } from "react-icons/go";
+import { auth } from "../firebase";
+import { IMemo } from "./timeline";
 
 const Wrapper = styled.div`
   position: relative;
-  width: 1440px;
+  // width: 1440px;
+  width: 250px;
   height: 1024px;
-
   background: #ffffff;
+  // background-color:white;
 `;
 
 const Sidebar = styled.div`
@@ -61,6 +64,7 @@ const Logo = styled.img`
   width: 120px; /* 로고 크기 조절 */
   margin-bottom: 20px;
 `;
+// const user = auth.currentUser;
 
 const menu = () => {
   return (

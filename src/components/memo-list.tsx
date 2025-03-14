@@ -9,8 +9,11 @@ const Wrapper = styled.div`
     grid-template-columns: 3fr 1fr;
     padding: 20px;
     border-radius: 20px;
-    border: 1px solid black;
+    // border: 1px solid black;
     margin-bottom: 10px;
+    background-color:white;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    position: relative;
 `;
 
 const Column = styled.div``;
@@ -32,8 +35,8 @@ const Payload = styled.p`
     `;
 
 const MemoDeleteButton = styled.button`
-    background-color: tomato;
-    color: white;
+    background-color: white;
+    color: gray;
     font-weight: 600;
     border:0;
     font-size:12px;
@@ -41,6 +44,9 @@ const MemoDeleteButton = styled.button`
     text-transform: uppercase;
     border-radius: 5px;
     cursor:pointer;
+    position: absolute; /* 위치를 절대적으로 지정 */
+    top: 10px; /* 상단에서 10px */
+    right: 10px; /* 오른쪽에서 10px */
 `;
 
 
@@ -64,9 +70,10 @@ export default function MemoList({id, username, photo, memoes, userId}:IMemo){
     }
     return <Wrapper>
         <Column>
-            <Username>{username}</Username>
+            <MemoDeleteButton onClick={onDeletes}>삭제</MemoDeleteButton>
+            {/* <Username>{username}</Username> */}
             <Payload>{memoes}</Payload>
-            <MemoDeleteButton onClick={onDeletes}>Delete</MemoDeleteButton>
+            
         </Column>
         {photo? <Column>
             <Photo src={photo}/>
