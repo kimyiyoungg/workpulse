@@ -72,8 +72,7 @@ export default function MemoList({id, username, photo, memoes, userId}:IMemo){
         <Column>
             <MemoDeleteButton onClick={onDeletes}>삭제</MemoDeleteButton>
             {/* <Username>{username}</Username> */}
-            <Payload>{memoes}</Payload>
-            
+            <Payload>{memoes}</Payload>    
         </Column>
         {photo? <Column>
             <Photo src={photo}/>

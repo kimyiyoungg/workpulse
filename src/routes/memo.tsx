@@ -24,6 +24,7 @@ const LeftPanel = styled.div`
   overflow-y: auto;  /* 스크롤 가능 */
   scrollbar-width: none;
   // width: 30%;
+  position: relative;
 `;
 
 const RightPanel = styled.div`
@@ -37,12 +38,19 @@ const RightPanel = styled.div`
   justify-content: flex-start;
 `;
 
+const MemoAddButton = styled.button`
+    position: absolute; /* 위치를 절대적으로 지정 */
+    top: 40px; /* 상단에서 10px */
+    right: 20px; /* 오른쪽에서 10px */
+    `;
+
 export default function Memo() {
   return (
     <Wrapper>
       <Menu /> {/* 사이드바 */}
       <LeftPanel>
         메모 리스트
+        <MemoAddButton>추가</MemoAddButton>
         <Timeline />
       </LeftPanel>
       <RightPanel>

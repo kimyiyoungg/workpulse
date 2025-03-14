@@ -17,7 +17,7 @@ export interface IMemo {
 }
 
 const Wrapper = styled.div`
-    margin-top: 30px;
+    margin-top: 50px;
     display: flex;
     flex-direction:column;
     // overflow-y:scroll;
