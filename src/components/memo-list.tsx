@@ -1,5 +1,8 @@
 import styled from "styled-components";
 import { IMemo } from "./timeline";
+import { auth, db, storage } from "../firebase";
+import { deleteDoc, doc } from "firebase/firestore";
+import { deleteObject, ref } from "firebase/storage";
 
 const Wrapper = styled.div`
     display: grid;
@@ -28,12 +31,42 @@ const Payload = styled.p`
     font-size: 17px;
     `;
 
+const MemoDeleteButton = styled.button`
+    background-color: tomato;
+    color: white;
+    font-weight: 600;
+    border:0;
+    font-size:12px;
+    padding: 5px 10px;
+    text-transform: uppercase;
+    border-radius: 5px;
+    cursor:pointer;
+`;
 
-export default function MemoList({username, photo, memoes}:IMemo){
+
+export default function MemoList({id, username, photo, memoes, userId}:IMemo){
+    const user = auth.currentUser;
+    const onDeletes = async() => {
+        const ok = confirm("정말 삭제할까요?");
+
+        if(!ok || user?.uid !== userId) return;
+        try {
+            await deleteDoc(doc(db, "memoes", id));
+            if(photo){
+                const photoRef = ref(storage, `memoes/${user.uid}-${username}/${id}`);
+                await deleteObject(photoRef);
+            }
+        } catch (e) {
+            console.log(e);
+        } finally {
+
+        }
+    }
     return <Wrapper>
         <Column>
             <Username>{username}</Username>
             <Payload>{memoes}</Payload>
+            <MemoDeleteButton onClick={onDeletes}>Delete</MemoDeleteButton>
         </Column>
         {photo? <Column>
             <Photo src={photo}/>

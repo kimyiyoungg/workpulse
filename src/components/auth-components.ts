@@ -6,6 +6,7 @@ export const Wrapper = styled.div`
   flex-direction: column;
   width: 420px;
   padding: 50px 20px;
+
 `;
 
 export const Title = styled.form`
@@ -26,18 +27,18 @@ export const Input = styled.input`
   padding: 10px 25px;
   border-radius: 5px;
   border: solid gray;
-  border-width: 2px 2px 2px 2px;
+  border-width: 2px 2px 2px 2px ;
   width: 100%;
-  font-size: 16px;
-  &[type="submit"] {
-    background-color: black;
+  font-size:16px;
+  &[type="submit"]{
+    background-color:black;
     color: white;
     cursor: pointer;
-    font-size: 16px;
-    &:hover {
-      opacity: 0.8;
+    font-size:16px;
+    &:hover{
+      opacity: 0.8
     }
-  }
+    }
 `;
 
 export const Error = styled.span`
@@ -53,8 +54,8 @@ export const Switcher = styled.span`
 `;
 
 export const OurLogo = styled.img`
-  height: 150px;
-  width: 200px;
-  margin-bottom: 20px;
-  position: relative;
-`;
+height: 150px;
+width: 200px;
+margin-bottom: 20px;
+position: relative;
+`; 
