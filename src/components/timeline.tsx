@@ -1,7 +1,19 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { auth, db } from "../firebase";
-import { collection, doc, getDoc, limit, onSnapshot, orderBy, query,where } from "firebase/firestore";
+
+import {
+  collection,
+  doc,
+  getDoc,
+  limit,
+  onSnapshot,
+  orderBy,
+  query,
+  where,
+} from "firebase/firestore";
+
+
 import MemoList from "./memo-list";
 import { Unsubscribe } from "firebase/auth";
 
@@ -17,12 +29,14 @@ export interface IMemo {
 }
 
 const Wrapper = styled.div`
-    margin-top: 50px;
-    display: flex;
-    flex-direction:column;
-    cursor:pointer;
-    // overflow-y:scroll;
-    // scrollbar-width: none;
+
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  // overflow-y:scroll;
+  // scrollbar-width: none;
+
 `;
 
 
@@ -72,3 +86,4 @@ export default function Timeline(){
     // return <Wrapper>{JSON.stringify(memoes)}</Wrapper>;
     return <Wrapper>{memoes.map(memoes => <MemoList key={memoes.id}{...memoes}/>)}</Wrapper>;
 }
+
