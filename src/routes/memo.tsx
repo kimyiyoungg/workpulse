@@ -23,7 +23,6 @@ const LeftPanel = styled.div`
   height: calc(100vh - 40px); /* 화면 전체 높이를 채우기 */
   overflow-y: auto;  /* 스크롤 가능 */
   scrollbar-width: none;
-  // width: 30%;
   position: relative;
 `;
 

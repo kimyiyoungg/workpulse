@@ -20,6 +20,7 @@ const Wrapper = styled.div`
     margin-top: 50px;
     display: flex;
     flex-direction:column;
+    cursor:pointer;
     // overflow-y:scroll;
     // scrollbar-width: none;
 `;
@@ -64,6 +65,8 @@ export default function Timeline(){
             unsubscribe && unsubscribe();
         }
     })
+
+    
     // return <Wrapper>{JSON.stringify(memoes)}</Wrapper>;
     return <Wrapper>{memoes.map(memoes => <MemoList key={memoes.id}{...memoes}/>)}</Wrapper>;
 }
