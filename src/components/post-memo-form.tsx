@@ -111,6 +111,7 @@ export default function postMemoForm(){
 
     }
 
+
     return (
       <Form onSubmit={onSubmit}>
         <TextArea
@@ -120,10 +121,10 @@ export default function postMemoForm(){
           onChange={onChange}
           value={memoes}
           placeholder="메모 작성"/>
-        <AttachFileButton htmlFor="file">{file?"Photo":"Add photo"}</AttachFileButton>
+        <AttachFileButton htmlFor="file">{file?"(사진 포함)":"사진 업로드"}</AttachFileButton>
         <AttachFileInput onChange={onFileChange} type="file" id="file" accept="image/*"/>
         <SubmitBtn 
           type="submit"
-          value={isLoading ? "Posting..":"Post Tweet"}/>
+          value={isLoading ? "저장 중..":"메모 저장"}/>
     </Form>);
 }

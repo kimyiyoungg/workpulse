@@ -2,8 +2,8 @@
 
 import { styled } from "styled-components";
 import PostMemoForm from "../components/post-memo-form";
-import Timeline from "../components/timeline";
 import Menu from "../components/menu";
+import Timeline from "../components/timeline";
 
 const Wrapper = styled.div`
   // margin-bottom: 30px;
@@ -23,7 +23,6 @@ const LeftPanel = styled.div`
   height: calc(100vh - 40px); /* 화면 전체 높이를 채우기 */
   overflow-y: auto; /* 스크롤 가능 */
   scrollbar-width: none;
-  // width: 30%;
   position: relative;
 `;
 
