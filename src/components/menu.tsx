@@ -1,4 +1,4 @@
-import React from "react";
+
 import { styled } from "styled-components";
 import { CgProfile } from "react-icons/cg";
 import { Link } from "react-router-dom";
@@ -6,8 +6,6 @@ import { IoDocumentTextOutline } from "react-icons/io5";
 import { FaPenToSquare } from "react-icons/fa6";
 import { CiChat2 } from "react-icons/ci";
 import { GoHome } from "react-icons/go";
-import { auth } from "../firebase";
-import { IMemo } from "./timeline";
 
 const Wrapper = styled.div`
   position: relative;

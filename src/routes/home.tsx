@@ -11,6 +11,7 @@ export default function Home() {
 
   return (
     <Wrapper>
+      {/* <Menu /> */}
       <PostBoardForm />
       <Btimeline />
       {/* <Menu/> */}

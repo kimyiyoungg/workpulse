@@ -2,8 +2,8 @@
 
 import { styled } from "styled-components";
 import PostMemoForm from "../components/post-memo-form";
-import Timeline from "../components/timeline";
 import Menu from "../components/menu";
+import Timeline from "../components/timeline";
 
 const Wrapper = styled.div`
   // margin-bottom: 30px;
