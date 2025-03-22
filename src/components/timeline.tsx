@@ -3,7 +3,8 @@ import styled from "styled-components";
 import { auth, db } from "../firebase";
 import {
   collection,
-  getDocs,
+  doc,
+  getDoc,
   limit,
   onSnapshot,
   orderBy,
@@ -26,6 +27,7 @@ const Wrapper = styled.div`
   margin-top: 50px;
   display: flex;
   flex-direction: column;
+  cursor: pointer;
   // overflow-y:scroll;
   // scrollbar-width: none;
 `;
@@ -72,6 +74,7 @@ export default function Timeline() {
       unsubscribe && unsubscribe();
     };
   });
+
   // return <Wrapper>{JSON.stringify(memoes)}</Wrapper>;
   return (
     <Wrapper>
