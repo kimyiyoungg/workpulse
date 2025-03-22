@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { IMemo } from "./timeline";
 import { auth, db, storage } from "../firebase";
-import { deleteDoc, doc } from "firebase/firestore";
+import { getDoc, deleteDoc, doc } from "firebase/firestore";
 import { deleteObject, ref } from "firebase/storage";
 
 const Wrapper = styled.div`
@@ -24,10 +24,10 @@ const Photo = styled.img`
     border-radius: 15px;
     `;
 
-const Username = styled.span`
-    font-weight: 600;
-    font-size:15px;
-`;
+// const Username = styled.span`
+//     font-weight: 600;
+//     font-size:15px;
+// `;
 
 const Payload = styled.p`
     margin: 10px 0px;
@@ -50,8 +50,9 @@ const MemoDeleteButton = styled.button`
 `;
 
 
-export default function MemoList({id, username, photo, memoes, userId}:IMemo){
+export default function MemoList({ id, username, photo, memoes, userId}: IMemo){
     const user = auth.currentUser;
+
     const onDeletes = async() => {
         const ok = confirm("정말 삭제할까요?");
 
@@ -68,7 +69,23 @@ export default function MemoList({id, username, photo, memoes, userId}:IMemo){
 
         }
     }
-    return <Wrapper>
+    const onViews = async() => {
+        
+        console.log(db);
+        const memoView = await getDoc(doc(db, "memoes", id));
+        const memoData = memoView.data();
+        console.log(memoData);
+
+    }
+
+    // const onViews = onSnapshot(
+    //     doc(db, "memoes", id), (snapshot) => {
+    //         const memoData = snapshot.data();
+    //         console.log(memoData);
+    //     }
+    // );
+
+    return <Wrapper onClick={onViews}>
         <Column>
             <MemoDeleteButton onClick={onDeletes}>삭제</MemoDeleteButton>
             {/* <Username>{username}</Username> */}
@@ -79,3 +96,4 @@ export default function MemoList({id, username, photo, memoes, userId}:IMemo){
         </Column> : null}
     </Wrapper>
 }
+
