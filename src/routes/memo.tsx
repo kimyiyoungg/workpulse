@@ -4,6 +4,7 @@ import { styled } from "styled-components";
 import PostMemoForm from "../components/post-memo-form";
 import Menu from "../components/menu";
 import Timeline from "../components/timeline";
+import { useState } from "react";
 
 const Wrapper = styled.div`
   // margin-bottom: 30px;
@@ -16,14 +17,17 @@ const Wrapper = styled.div`
 `;
 
 const LeftPanel = styled.div`
-  flex: 1;
+  // flex: 1;
+  width: 40%;
   background-color: #f1f1f1; /* 회색 배경 */
   padding: 20px;
   border-radius: 20px;
   height: calc(100vh - 40px); /* 화면 전체 높이를 채우기 */
   overflow-y: auto; /* 스크롤 가능 */
   scrollbar-width: none;
-  position: relative;
+  // position: relative;
+  position: absolute;
+  right: 44%;
 `;
 
 const RightPanel = styled.div`
@@ -35,6 +39,10 @@ const RightPanel = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  position: absolute;
+  // top: 0;
+  right: 2%;
+  
 `;
 
 const MemoAddButton = styled.button`
@@ -44,18 +52,29 @@ const MemoAddButton = styled.button`
 `;
 
 export default function Memo() {
+
+    // 상태 관리: PostMemoForm을 보일지 말지를 결정하는 변수
+    const [isPanelVisible, setIsPanelVisible] = useState(false);
+
+    // 버튼 클릭 시 상태를 토글하는 함수
+    const handleAddButtonClick = () => {
+      setIsPanelVisible(prev => !prev); // 상태값을 반전시킴 (true ↔ false)
+    };
+
   return (
     <Wrapper>
       <Menu /> {/* 사이드바 */}
       <LeftPanel>
         메모 리스트
-        <MemoAddButton>추가</MemoAddButton>
+        <MemoAddButton onClick={handleAddButtonClick}>추가</MemoAddButton> {/* 버튼 클릭 시 상태 변경 */}
         <Timeline />
       </LeftPanel>
-      <RightPanel>
-        메모 작성
-        <PostMemoForm />
-      </RightPanel>
+      {isPanelVisible && (
+        <RightPanel>
+          메모 작성
+          <PostMemoForm />
+        </RightPanel>
+      )}
     </Wrapper>
   );
 }
