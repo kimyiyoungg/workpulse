@@ -1,7 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Layout from "./components/layout";
 import Home from "./routes/home";
-import Profile from "./routes/profile";
 import Login from "./routes/login";
 import CreateAccount from "./routes/create-account";
 import { createGlobalStyle } from "styled-components";
@@ -13,8 +12,9 @@ import styled from "styled-components";
 import ProtectedRoute from "./components/protected-route";
 import StartHome from "./routes/startHome";
 import Memo from "./routes/memo";
-import PostBoardForm from "./components/post-board-form";
+// import PostBoardForm from "./components/post-board-form";
 import BoardWrite from "./routes/board-write";
+import Profile from "./routes/profile";
 
 const router = createBrowserRouter([
   {
@@ -29,11 +29,15 @@ const router = createBrowserRouter([
         path: "",
         element: <Home />,
       },
-      {
-        path: "profile",
-        element: <Profile />,
-      },
+      // {
+      //   path: "profile",
+      //   element: <Profile />,
+      // },
     ],
+  },
+  {
+    path: "/profile",
+    element: <Profile/>
   },
   {
     path: "/login",
