@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { db } from "../firebase";
 import Board from "./board";
+import Menu from "./menu";
 
 export interface IBoard {
   id: string;

@@ -3,6 +3,7 @@ import Menu from "../components/menu";
 import { auth } from "../firebase";
 import Btimeline from "../components/Btimeline";
 import PostBoardForm from "../components/post-board-form";
+import Boardlayout from "../components/boardlayout";
 const Wrapper = styled.div``;
 export default function Home() {
   const logOut = () => {
@@ -12,8 +13,8 @@ export default function Home() {
   return (
     <Wrapper>
       {/* <Menu /> */}
-      <PostBoardForm />
-      <Btimeline />
+
+      <Boardlayout />
       {/* <Menu/> */}
       {/* /<button onClick={logOut}>Log Out</button> */}
     </Wrapper>

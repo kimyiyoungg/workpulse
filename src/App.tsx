@@ -13,6 +13,7 @@ import styled from "styled-components";
 import ProtectedRoute from "./components/protected-route";
 import StartHome from "./routes/startHome";
 import Memo from "./routes/memo";
+import PostBoardForm from "./components/post-board-form";
 
 const router = createBrowserRouter([
   {
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
   {
     path: "/memo",
     element: <Memo />,
+  },
+  {
+    path: "/post-board-form",
+    element: <PostBoardForm />,
   },
 ]);
 
