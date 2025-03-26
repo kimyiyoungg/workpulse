@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { Wrapper } from "./auth-components";
-import { IBoard } from "./timeline";
+import { IBoard } from "./Btimeline";
+import { Link } from "react-router-dom";
 
 const Wrapper = styled.div`
   display: grid;
@@ -27,6 +27,7 @@ const Payload = styled.p`
   margin: 10px 0px;
   font-size: 18px;
 `;
+
 export default function Board({ username, photo, board }: IBoard) {
   return (
     <Wrapper>
