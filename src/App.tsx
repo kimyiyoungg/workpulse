@@ -14,6 +14,7 @@ import ProtectedRoute from "./components/protected-route";
 import StartHome from "./routes/startHome";
 import Memo from "./routes/memo";
 import PostBoardForm from "./components/post-board-form";
+import BoardWrite from "./routes/board-write";
 
 const router = createBrowserRouter([
   {
@@ -51,8 +52,8 @@ const router = createBrowserRouter([
     element: <Memo />,
   },
   {
-    path: "/post-board-form",
-    element: <PostBoardForm />,
+    path: "/board-write",
+    element: <BoardWrite />,
   },
 ]);
 

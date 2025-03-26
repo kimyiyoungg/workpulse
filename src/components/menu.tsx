@@ -1,4 +1,3 @@
-
 import { styled } from "styled-components";
 import { CgProfile } from "react-icons/cg";
 import { Link } from "react-router-dom";
@@ -82,7 +81,7 @@ const menu = () => {
           </Link>
         </MenuItem>
         <MenuItem>
-          <Link to="/login">
+          <Link to="/board-write">
             <IoDocumentTextOutline size={40} className="cursor-pointer" />
             업무게시판
           </Link>

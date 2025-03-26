@@ -42,7 +42,6 @@ const RightPanel = styled.div`
   position: absolute;
   // top: 0;
   right: 2%;
-  
 `;
 
 const MemoAddButton = styled.button`
@@ -52,29 +51,29 @@ const MemoAddButton = styled.button`
 `;
 
 export default function Memo() {
+  // 상태 관리: PostMemoForm을 보일지 말지를 결정하는 변수
+  const [isPanelVisible, setIsPanelVisible] = useState(false);
 
-    // 상태 관리: PostMemoForm을 보일지 말지를 결정하는 변수
-    const [isPanelVisible, setIsPanelVisible] = useState(false);
+  const [memoToEdit, setMemoToEdit] = useState("");
 
-    const [memoToEdit, setMemoToEdit] = useState("");
-
-    // 버튼 클릭 시 상태를 토글하는 함수
-    const handleAddButtonClick = () => {
-      setIsPanelVisible(prev => !prev); // 상태값을 반전시킴 (true ↔ false)
-    };
+  // 버튼 클릭 시 상태를 토글하는 함수
+  const handleAddButtonClick = () => {
+    setIsPanelVisible((prev) => !prev); // 상태값을 반전시킴 (true ↔ false)
+  };
 
   return (
     <Wrapper>
       <Menu /> {/* 사이드바 */}
       <LeftPanel>
         메모 리스트
-        <MemoAddButton onClick={handleAddButtonClick}>추가</MemoAddButton> {/* 버튼 클릭 시 상태 변경 */}
-        <Timeline setMemoToEdit={setMemoToEdit}/>
+        <MemoAddButton onClick={handleAddButtonClick}>추가</MemoAddButton>{" "}
+        {/* 버튼 클릭 시 상태 변경 */}
+        <Timeline setMemoToEdit={setMemoToEdit} />
       </LeftPanel>
       {isPanelVisible && (
         <RightPanel>
           메모 작성
-          <PostMemoForm memoToEdit={memoToEdit} setMemoToEdit={setMemoToEdit}/>
+          <PostMemoForm memoToEdit={memoToEdit} setMemoToEdit={setMemoToEdit} />
         </RightPanel>
       )}
     </Wrapper>
@@ -142,7 +141,7 @@ export default function Memo() {
 //   position: absolute;
 //   // top: 0;
 //   right: 2%;
-  
+
 // `;
 
 // const MemoAddButton = styled.button`
