@@ -25,37 +25,11 @@ const PostContainer = styled.div`
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 `;
 
-const NewPostButton = styled.button`
-  padding: 10px 20px;
-  background-color: black;
-  color: white;
-  border: none;
-  border-radius: 20px;
-  font-size: 16px;
-  cursor: pointer;
-  margin-bottom: 20px;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: #0d7bbf;
-  }
-`;
-
 const Layout = () => {
   return (
-    <LayoutWrapper>
-      {/* 왼쪽 사이드바 */}
-      <Menu />
-
-      {/* 오른쪽 컨텐츠 영역 */}
-      <ContentArea>
-        <NewPostButton>
-          <Link to="/post-board-form">글쓰기&rarr;</Link>
-        </NewPostButton>
-
-        <Btimeline />
-      </ContentArea>
-    </LayoutWrapper>
+    <ContentArea>
+      <Btimeline />
+    </ContentArea>
   );
 };
 

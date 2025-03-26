@@ -9,13 +9,15 @@ const Form = styled.form`
   gap: 10px;
 `;
 const TextArea = styled.textarea`
-  border: 2px solid white;
+  border: 1px solid black;
   padding: 20px;
-  border-radius: 20px;
+  border-radius: 15px;
   font-size: 16px;
-  color: white;
-  background-color: black;
+  color: black;
+  background-color: white;
   width: 100%;
+  height: 600px; /* 원하는 높이값 설정 */
+
   resize: none;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
@@ -42,10 +44,13 @@ const AttachFileInput = styled.input`
 `;
 const SubmitBtn = styled.input`
   border: 1px solid black;
+  background-color: black;
+  color: white;
   padding: 10px 0px;
   border-radius: 20px;
   font-size: 16px;
   cursor: pointer;
+
   &:hover,
   &:active {
     opacity: 0.9;
