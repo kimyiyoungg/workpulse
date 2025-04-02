@@ -20,9 +20,9 @@ import GoogleButton from "../components/google-btn";
 
 export default function Login() {
   const user = auth.currentUser;
-    if (user) {
-      return <Navigate to="/" />;
-    }
+  if (user) {
+    return <Navigate to="/" />;
+  }
   const navigate = useNavigate();
   const [isLoding, setLoding] = useState(false);
   const [userEmail, setUserEmail] = useState("");
@@ -57,7 +57,7 @@ export default function Login() {
       setLoding(false);
     }
   };
-
+  //테스트
   return (
     <Wrapper>
       {/* 주임님 중앙정렬 어케해 */}

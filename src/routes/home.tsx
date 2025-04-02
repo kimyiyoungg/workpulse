@@ -41,7 +41,7 @@ export default function Home() {
       <MainContent>
         <Boardlayout />
       </MainContent>
-      <RightSidebar>dd</RightSidebar>
+      <RightSidebar></RightSidebar>
     </Container>
   );
 }

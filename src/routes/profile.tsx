@@ -1,3 +1,4 @@
+
 import { styled } from "styled-components";
 import Menu from "../components/menu";
 import { auth, storage } from "../firebase";
@@ -86,4 +87,5 @@ export default function Profile() {
       
     </Wrapper>
   );
+
 }
