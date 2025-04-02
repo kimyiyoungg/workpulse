@@ -75,7 +75,7 @@ const menu = () => {
           </Link>
         </MenuItem>
         <MenuItem>
-          <Link to="/profile">
+          <Link to="/memo">
             <CgProfile size={40} className="cursor-pointer" />
             프로필
           </Link>
