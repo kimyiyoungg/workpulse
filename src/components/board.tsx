@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { IBoard } from "./Btimeline";
 import { Link } from "react-router-dom";
+import { auth, db } from "../firebase";
+import { deleteDoc, doc } from "firebase/firestore";
 
 const Wrapper = styled.div`
   display: grid;
@@ -28,12 +30,33 @@ const Payload = styled.p`
   font-size: 18px;
 `;
 
-export default function Board({ username, photo, board }: IBoard) {
+const DeleteButton = styled.button``;
+
+export default function Board({
+  title,
+  username,
+  photo,
+  board,
+  userId,
+  id,
+}: IBoard) {
+  const user = auth.currentUser;
+  const onDelete = async () => {
+    if (user?.uid !== userId) return;
+    try {
+      await deleteDoc(doc(db, "board", id));
+    } catch (e) {
+      console.log(e);
+    } finally {
+    }
+  };
   return (
     <Wrapper>
       <Column>
         <Username>{username}</Username>
+        <Payload>{title}</Payload>
         <Payload>{board}</Payload>
+        {user?.uid === userId ? <DeleteButton>삭제</DeleteButton> : null}
       </Column>
       {photo ? (
         <Column>
