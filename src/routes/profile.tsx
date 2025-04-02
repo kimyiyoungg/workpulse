@@ -1,10 +1,10 @@
-
 import { styled } from "styled-components";
 import Menu from "../components/menu";
 import { auth, storage } from "../firebase";
 import { useState } from "react";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { updateProfile } from "firebase/auth";
+import Select from "react-select";
 // import { CgProfile } from "react-icons/cg";
 
 const Wrapper = styled.div`
@@ -48,9 +48,30 @@ const Name = styled.span`
   font-size: 22px;
 `;
 
+const IntroInput = styled.input`
+`;
+
+const SubmitBtn = styled.input`
+    background-color: black;
+    color: white;
+    border:none;
+    padding:10px 0px;
+    border-radius: 20px;
+    font-size:16px;
+    width: 150px;
+    cursor: pointer;
+    &:hover,
+    &:active {
+      opacity: 0.9;
+    }    
+`;
+
 export default function Profile() {
 
   const user = auth.currentUser;
+  const [isLoading, setLoading] = useState(false);
+
+  // 프로필 사진 변경
   const [avatar, setAvatar] = useState(user?.photoURL);
   const onAvatarChange = async (e:React.ChangeEvent<HTMLInputElement>) => {
     const {files} = e.target;
@@ -66,6 +87,24 @@ export default function Profile() {
       })
     }
   }
+
+  // 부서 select box
+  const departments = [
+    {value:'경영기획부', label:'경영기획부'},
+    {value:'사업개발부', label:'사업개발부'},
+  ];
+  const departmentPlaceholder = '부서 선택';
+
+  const [depertmentSelect, setDepartmentSelect] = useState('');
+
+  const onChangeDepartment = (e: any) => {
+    if (e) setDepartmentSelect(e.value);
+    else setDepartmentSelect('');
+  };
+
+
+
+
   return (
     <Wrapper>
       <Menu />
@@ -84,7 +123,14 @@ export default function Profile() {
         )}
       </AvatarUpload>
       <AvatarInput onChange = {onAvatarChange} id="avatar" type="file" accept="image/*"  />
-      
+      <Select 
+        onChange={onChangeDepartment}
+        options={departments}
+        placeholder={departmentPlaceholder}/>
+      <IntroInput></IntroInput>
+      <SubmitBtn 
+          type="submit"
+          value={isLoading ? "저장 중..": "완료"}/>
     </Wrapper>
   );
 
