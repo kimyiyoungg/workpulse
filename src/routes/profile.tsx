@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 // 개인메모 화면
+=======
+>>>>>>> yiyoung0402
 
 import { styled } from "styled-components";
 import Menu from "../components/menu";
@@ -19,4 +22,8 @@ export default function Profile() {
       <Menu /> {/* 사이드바 */}
     </Wrapper>
   );
+<<<<<<< HEAD
+=======
+
+>>>>>>> yiyoung0402
 }
