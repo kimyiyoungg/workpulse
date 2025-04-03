@@ -24,6 +24,7 @@ const Logo = styled.img`
 `;
 
 const AvatarUpload = styled.label`
+  flex: 1;
   width: 80px;
   overflow: hidden;
   height: 80px;
