@@ -1,10 +1,11 @@
 import { styled } from "styled-components";
 import Menu from "../components/menu";
-import { auth, storage } from "../firebase";
+import { auth, db, storage } from "../firebase";
 import { useState } from "react";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { updateProfile } from "firebase/auth";
 import Select from "react-select";
+import { addDoc, collection } from "firebase/firestore";
 
 const Wrapper = styled.div`
   display: flex;
@@ -14,6 +15,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   margin-left: 250px;
   width: calc(100% - 300px);
+  margin-bottom: 15%;
 `;
 
 const Logo = styled.img`
@@ -93,6 +95,11 @@ const SubmitBtn = styled.input`
 export default function Profile() {
   const user = auth.currentUser;
   const [isLoading, setLoading] = useState(false);
+  // const [depart, setDepart] = useState("");
+  const [myIntro, setMyIntro] = useState("");
+  const onIntroChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setMyIntro(e.target.value);
+  };
 
   // 프로필 사진 변경
   const [avatar, setAvatar] = useState(user?.photoURL);
@@ -119,15 +126,39 @@ export default function Profile() {
   ];
   const departmentPlaceholder = '';
 
-  const [depertmentSelect, setDepartmentSelect] = useState('');
+  const [depertmentSelect, setDepartmentSelect] = useState("");
 
   const onChangeDepartment = (e: any) => {
     if (e) setDepartmentSelect(e.value);
     else setDepartmentSelect('');
   };
 
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const user = auth.currentUser;
+    if (!user || isLoading || depertmentSelect === "") return;
+    try {
+      setLoading(true);
+      const doc = await addDoc(collection(db, "profile"), {
+        username: user.displayName || "Anonymous",
+        userId: user.uid,
+        department: depertmentSelect,
+        introduce: myIntro,
+        photo: avatar,
+        profileCreatedAt: Date.now(),
+      });
+
+      console.log("프로필이 저장되었습니다.", doc.id);
+            
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setLoading(false);
+    }  
+  }
+
   return (
-    <Wrapper>
+    <Wrapper >
       <Menu />
       <Logo src="/mini-logo.svg" alt="사이트 로고" />
       <Name>
@@ -154,11 +185,17 @@ export default function Profile() {
             placeholder={departmentPlaceholder}
           />
           <Description>한 줄 소개</Description>
-          <IntroInput placeholder="" />
+          <IntroInput 
+            value={myIntro}  // 상태와 연결
+            onChange={onIntroChange}  // 상태 업데이트
+            placeholder="" />
         </InputWrapper>
       </AvatarWrapper>
 
-      <SubmitBtn type="submit" value={isLoading ? '저장 중..' : '완료'} />
+      {/* <SubmitBtn type="submit" value={isLoading ? '저장 중..' : '완료'} /> */}
+      <form onSubmit={onSubmit}>
+        <SubmitBtn type="submit" value={isLoading ? '저장 중..' : '완료'} />
+      </form>
     </Wrapper>
   );
 }
