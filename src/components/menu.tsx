@@ -89,11 +89,11 @@ const menu = () => {
         <MenuItem>
           <Link to="/memo">
             <FaPenToSquare size={40} className="cursor-pointer" />
-            메모
+            개인메모
           </Link>
         </MenuItem>
         <MenuItem>
-          <Link to="/login">
+          <Link to="/chat">
             <CiChat2 size={40} className="cursor-pointer" />
             채팅
           </Link>
