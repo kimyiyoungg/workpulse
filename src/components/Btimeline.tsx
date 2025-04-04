@@ -7,8 +7,9 @@ import Menu from "./menu";
 
 export interface IBoard {
   id: string;
-  photo?: string;
+  photo: string;
   board: string;
+  title: string;
   userId: string;
   username: string;
   createdAt: number;
@@ -25,10 +26,11 @@ export default function Btimeline() {
     );
     const spanshot = await getDocs(boardsQuery);
     const boards = spanshot.docs.map((doc) => {
-      const { board, createdAt, userId, username, photo } = doc.data();
+      const { board, createdAt, title, userId, username, photo } = doc.data();
       return {
         board,
         createdAt,
+        title,
         userId,
         username,
         photo,

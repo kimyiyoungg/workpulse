@@ -11,10 +11,10 @@ const LayoutWrapper = styled.div`
 `;
 
 const ContentArea = styled.div`
-  flex: 1;
+  flex: 3;
   padding: 20px;
   overflow-y: auto;
-  background-color: #f1f3f5;
+  background-color: white;
 `;
 
 const PostContainer = styled.div`
@@ -27,9 +27,11 @@ const PostContainer = styled.div`
 
 const Layout = () => {
   return (
-    <ContentArea>
-      <Btimeline />
-    </ContentArea>
+    <LayoutWrapper>
+      <ContentArea>
+        <Btimeline />
+      </ContentArea>
+    </LayoutWrapper>
   );
 };
 

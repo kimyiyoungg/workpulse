@@ -3,89 +3,140 @@ import { useState } from "react";
 import { styled } from "styled-components";
 import { db, auth, storage } from "../firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 20px;
+  padding: 24px;
+  background-color: #fafafa;
+  border: 1px solid #ddd;
+  border-radius: 16px;
+  max-width: 800px;
+  margin: 0 auto;
 `;
-const TextArea = styled.textarea`
-  border: 1px solid black;
-  padding: 20px;
-  border-radius: 15px;
-  font-size: 16px;
-  color: black;
-  background-color: white;
-  width: 100%;
-  height: 600px; /* 원하는 높이값 설정 */
 
-  resize: none;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  &::placeholder {
-    font-size: 16px;
-  }
+const Input = styled.input`
+  border: none;
+  border-bottom: 2px solid #ccc;
+  padding: 16px 8px;
+  font-size: 24px;
+  font-weight: bold;
+  background-color: transparent;
+  transition: border-color 0.3s;
+
   &:focus {
     outline: none;
     border-color: #1d9bf0;
   }
 `;
-const AttachFileButton = styled.label`
-  padding: 10px 0px;
-  color: black;
-  text-align: center;
-  border-radius: 20px;
-  border: 1px solid black;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
+
+const TextArea = styled.textarea`
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 12px;
+  font-size: 18px;
+  background-color: white;
+  height: 500px;
+  resize: vertical;
+  line-height: 1.6;
+  font-family: "Noto Sans KR", system-ui, sans-serif;
+  transition: border-color 0.3s;
+
+  &::placeholder {
+    color: #aaa;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: #1d9bf0;
+  }
 `;
+
+const AttachFileButton = styled.label`
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: #f0f0f0;
+  color: #333;
+  text-align: center;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  border: 1px dashed #ccc;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #e5e5e5;
+  }
+`;
+
 const AttachFileInput = styled.input`
   display: none;
 `;
+
 const SubmitBtn = styled.input`
-  border: 1px solid black;
+  padding: 16px 0;
+  font-size: 18px;
+  font-weight: bold;
+  border: none;
+  border-radius: 12px;
   background-color: black;
   color: white;
-  padding: 10px 0px;
-  border-radius: 20px;
-  font-size: 16px;
   cursor: pointer;
+  transition: background-color 0.2s;
 
   &:hover,
   &:active {
-    opacity: 0.9;
+    background-color: #1683d8;
   }
 `;
+
 export default function PostBoardForm() {
   const [isLoading, setLoading] = useState(false);
-  const [board, setBoard] = useState("");
+  const [title, setTitle] = useState(""); // 제목 상태 추가
+  const [board, setBoard] = useState(""); // 내용 상태 유지
   const [file, setFile] = useState<File | null>(null);
-  const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+
+  const onTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value);
+  };
+
+  const onContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setBoard(e.target.value);
   };
+
   const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = e.target;
     if (files && files.length === 1) {
       setFile(files[0]);
     }
   };
+
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const user = auth.currentUser;
-    if (!user || isLoading || board === "" || board.length > 180) return;
+    if (
+      !user ||
+      isLoading ||
+      title === "" ||
+      board === "" ||
+      board.length > 180
+    )
+      return;
     try {
       setLoading(true);
+      // Firestore에 제목(title)과 내용(board) 저장
       const doc = await addDoc(collection(db, "board"), {
-        board,
+        title, // 제목 추가
+        board, // 내용 추가
         createdAt: Date.now(),
         username: user.displayName || "Anonymous",
         userId: user.uid,
       });
+
       if (file) {
-        const locationRef = ref(
-          storage,
-          `boards/${user.uid}-${user.displayName}/${doc.id}`
-        );
+        const locationRef = ref(storage, `board/${user.uid}/${doc.id}`);
         const result = await uploadBytes(locationRef, file);
         const url = await getDownloadURL(result.ref);
         await updateDoc(doc, {
@@ -96,18 +147,32 @@ export default function PostBoardForm() {
       console.log(e);
     } finally {
       setLoading(false);
+      setTitle(""); // 제목 초기화
+      setBoard(""); // 내용 초기화
+      setFile(null); // 파일 초기화
     }
   };
+
   return (
     <Form onSubmit={onSubmit}>
+      <Input
+        type="text"
+        required
+        maxLength={50}
+        onChange={onTitleChange}
+        value={title}
+        placeholder="제목을 입력하세요"
+      />
+
       <TextArea
         required
         rows={5}
         maxLength={180}
-        onChange={onChange}
+        onChange={onContentChange}
         value={board}
-        placeholder="What is happening?!"
-      />
+        placeholder="내용을 입력하세요"
+      ></TextArea>
+
       <AttachFileButton htmlFor="file">
         {file ? "Photo added ✅" : "Add photo"}
       </AttachFileButton>

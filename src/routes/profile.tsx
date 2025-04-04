@@ -1,24 +1,3 @@
-<
-// 개인메모 화면
-
-import { styled } from "styled-components";
-import Menu from "../components/menu";
-
-const Wrapper = styled.div`
-  // margin-bottom: 30px;
-  display: flex;
-  justify-content: space-between; /* 왼쪽(메모 리스트)과 오른쪽(메모 작성) 구분 */
-  gap: 20px; /* 두 영역 간의 간격 */
-  padding: 20px;
-  width: 100%;
-  overflow: hidden;
-`;
-
-export default function Profile() {
-  return (
-    <Wrapper>
-      <Menu /> {/* 사이드바 */}
-=======
 import { styled } from "styled-components";
 import Menu from "../components/menu";
 import { auth, db, storage } from "../firebase";
@@ -207,8 +186,8 @@ export default function Profile() {
           />
           <Description>한 줄 소개</Description>
           <IntroInput 
-            value={myIntro}  // 상태와 연결
-            onChange={onIntroChange}  // 상태 업데이트
+            value={myIntro}
+            onChange={onIntroChange}
             placeholder="" />
         </InputWrapper>
       </AvatarWrapper>
@@ -217,7 +196,6 @@ export default function Profile() {
       <form onSubmit={onSubmit}>
         <SubmitBtn type="submit" value={isLoading ? '저장 중..' : '완료'} />
       </form>
-
     </Wrapper>
   );
 }
