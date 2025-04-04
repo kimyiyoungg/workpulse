@@ -4,6 +4,8 @@ import { auth } from "../firebase";
 import Btimeline from "../components/Btimeline";
 import PostBoardForm from "../components/post-board-form";
 import Boardlayout from "../components/boardlayout";
+import Birthday from "../components/birthday";
+import Congratulations from "../components/congratulations";
 
 export const Container = styled.div`
   display: flex;
@@ -63,7 +65,10 @@ export default function Home() {
       <MainContent>
         <Boardlayout />
       </MainContent>
-      <RightSidebar />
+      <RightSidebar>
+        <Birthday />
+        <Congratulations />
+      </RightSidebar>
     </Container>
   );
 }
