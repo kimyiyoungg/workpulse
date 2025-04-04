@@ -15,6 +15,7 @@ import Memo from "./routes/memo";
 // import PostBoardForm from "./components/post-board-form";
 import BoardWrite from "./routes/board-write";
 import Profile from "./routes/profile";
+import Chat from "./routes/chat";
 
 const router = createBrowserRouter([
   {
@@ -58,6 +59,10 @@ const router = createBrowserRouter([
   {
     path: "/board-write",
     element: <BoardWrite />,
+  },
+  {
+    path: "/chat",
+    element: <Chat />,
   },
 ]);
 
