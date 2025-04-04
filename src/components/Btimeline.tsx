@@ -7,7 +7,7 @@ import Menu from "./menu";
 
 export interface IBoard {
   id: string;
-  photo?: string;
+  photo: string;
   board: string;
   title: string;
   userId: string;
