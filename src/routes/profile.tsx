@@ -5,7 +5,7 @@ import { useState } from "react";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { updateProfile } from "firebase/auth";
 import Select from "react-select";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, doc, getDocs, query, updateDoc, where } from "firebase/firestore";
 
 const Wrapper = styled.div`
   display: flex;
@@ -139,16 +139,45 @@ export default function Profile() {
     if (!user || isLoading || depertmentSelect === "") return;
     try {
       setLoading(true);
-      const doc = await addDoc(collection(db, "profile"), {
-        username: user.displayName || "Anonymous",
-        userId: user.uid,
-        department: depertmentSelect,
-        introduce: myIntro,
-        photo: avatar,
-        profileCreatedAt: Date.now(),
-      });
 
-      console.log("프로필이 저장되었습니다.", doc.id);
+
+      // const doc = await addDoc(collection(db, "profile"), {
+      //   username: user.displayName || "Anonymous",
+      //   userId: user.uid,
+      //   department: depertmentSelect,
+      //   introduce: myIntro,
+      //   photo: avatar,
+      //   profileCreatedAt: Date.now(),
+      // });
+
+      // console.log("프로필이 저장되었습니다.", doc.id);
+       // Firestore에서 userId로 프로필 문서 찾기
+       const q = query(collection(db, "profile"), where("userId", "==", user.uid));
+       const querySnapshot = await getDocs(q);
+ 
+       if (!querySnapshot.empty) {
+         // 문서가 이미 존재하면 updateDoc 사용
+         querySnapshot.forEach(async (docSnap) => {
+           const docRef = doc(db, "profile", docSnap.id);
+           await updateDoc(docRef, {
+             department: depertmentSelect,
+             introduce: myIntro,
+             photo: avatar,
+           });
+         });
+         console.log("프로필이 업데이트되었습니다.");
+       } else {
+         // 문서가 없으면 새로 추가
+         const doc = await addDoc(collection(db, "profile"), {
+           username: user.displayName || "Anonymous",
+           userId: user.uid,
+           department: depertmentSelect,
+           introduce: myIntro,
+           photo: avatar,
+           profileCreatedAt: Date.now(),
+         });
+         console.log("프로필이 저장되었습니다.", doc.id);}
+
             
     } catch (e) {
       console.log(e);
