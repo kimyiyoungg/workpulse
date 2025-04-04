@@ -30,7 +30,7 @@ const AvatarWrapper = styled.div`
 `;
 
 const AvatarUpload = styled.label`
-  width:  100px;
+  width: 100px;
   height: 130px;
   border-radius: 50%;
   background-color: #f1f1f1;
@@ -60,7 +60,6 @@ const Name = styled.span`
 
 const Description = styled.span`
   font-size: 12px;
-  
 `;
 
 const InputWrapper = styled.div`
@@ -68,7 +67,6 @@ const InputWrapper = styled.div`
   flex-direction: column;
   width: 300px; /* 너비를 넓혀서 중앙 배치 */
   gap: 10px;
-  
 `;
 
 const IntroInput = styled.input`
@@ -120,17 +118,17 @@ export default function Profile() {
 
   // 부서 select box
   const departments = [
-    { value: '경영기획부', label: '경영기획부' },
-    { value: '사업개발부', label: '사업개발부' },
-    { value: '사업운영부', label: '사업운영부' },
+    { value: "경영기획부", label: "경영기획부" },
+    { value: "사업개발부", label: "사업개발부" },
+    { value: "사업운영부", label: "사업운영부" },
   ];
-  const departmentPlaceholder = '';
+  const departmentPlaceholder = "";
 
   const [depertmentSelect, setDepartmentSelect] = useState("");
 
   const onChangeDepartment = (e: any) => {
     if (e) setDepartmentSelect(e.value);
-    else setDepartmentSelect('');
+    else setDepartmentSelect("");
   };
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -149,20 +147,19 @@ export default function Profile() {
       });
 
       console.log("프로필이 저장되었습니다.", doc.id);
-            
     } catch (e) {
       console.log(e);
     } finally {
       setLoading(false);
-    }  
-  }
+    }
+  };
 
   return (
-    <Wrapper >
+    <Wrapper>
       <Menu />
       <Logo src="/mini-logo.svg" alt="사이트 로고" />
       <Name>
-        반갑습니다. {user?.displayName ?? 'Anonymous'}님 프로필을 설정하세요.
+        반갑습니다. {user?.displayName ?? "Anonymous"}님 프로필을 설정하세요.
       </Name>
 
       <AvatarWrapper>
@@ -170,13 +167,29 @@ export default function Profile() {
           {avatar ? (
             <AvatarImg src={avatar} />
           ) : (
-            <svg fill="none" strokeWidth={1.5} stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+            <svg
+              fill="none"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
+              />
             </svg>
           )}
         </AvatarUpload>
-        <AvatarInput onChange={onAvatarChange} id="avatar" type="file" accept="image/*" />
-        
+        <AvatarInput
+          onChange={onAvatarChange}
+          id="avatar"
+          type="file"
+          accept="image/*"
+        />
+
         <InputWrapper>
           <Description>부서 선택</Description>
           <Select
@@ -185,21 +198,17 @@ export default function Profile() {
             placeholder={departmentPlaceholder}
           />
           <Description>한 줄 소개</Description>
-          <IntroInput 
-            value={myIntro}
-            onChange={onIntroChange}
-            placeholder="" />
+          <IntroInput value={myIntro} onChange={onIntroChange} placeholder="" />
         </InputWrapper>
       </AvatarWrapper>
 
       {/* <SubmitBtn type="submit" value={isLoading ? '저장 중..' : '완료'} /> */}
       <form onSubmit={onSubmit}>
-        <SubmitBtn type="submit" value={isLoading ? '저장 중..' : '완료'} />
+        <SubmitBtn type="submit" value={isLoading ? "저장 중.." : "완료"} />
       </form>
     </Wrapper>
   );
 }
-
 
 // import { styled } from "styled-components";
 // import Menu from "../components/menu";
@@ -266,7 +275,7 @@ export default function Profile() {
 //     &:hover,
 //     &:active {
 //       opacity: 0.9;
-//     }    
+//     }
 // `;
 
 // export default function Profile() {
@@ -306,9 +315,6 @@ export default function Profile() {
 //     else setDepartmentSelect('');
 //   };
 
-
-
-
 //   return (
 //     <Wrapper>
 //       <Menu />
@@ -328,17 +334,16 @@ export default function Profile() {
 //       </AvatarUpload>
 //       <AvatarInput onChange = {onAvatarChange} id="avatar" type="file" accept="image/*"  />
 
-//       <Select 
+//       <Select
 //         onChange={onChangeDepartment}
 //         options={departments}
 //         placeholder={departmentPlaceholder}/>
 //       <IntroInput></IntroInput>
 
-//       <SubmitBtn 
+//       <SubmitBtn
 //           type="submit"
 //           value={isLoading ? "저장 중..": "완료"}/>
-      
-      
+
 //     </Wrapper>
 //   );
 
