@@ -1,11 +1,24 @@
 import { styled } from "styled-components";
 import Menu from "../components/menu";
 import { useState } from "react";
+import { auth, db } from "../firebase";
+import { addDoc, collection } from "firebase/firestore";
 
-export const Wrapper = styled.div`
+
+
+const Wrapper = styled.div`
     display: flex;
     justify-content: center;
 `;
+
+const Form = styled.form`
+    display: flex;
+    margin-top: 30px;
+    flex-direction: row;
+    gap: 10px;
+    text-align: right;
+    height: 100%;
+    `;
 
 const ChatInput = styled.input`
     height: 40px;
@@ -38,13 +51,39 @@ export default function Chat() {
         setChatting(e.target.value);
     };
 
+    const onSending = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const user = auth.currentUser;
+        if(!user || isLoading || chatting === "" || chatting.length > 180 ) return;
+        try{
+            setLoading(true);
+            const doc = await addDoc(collection(db, "chatting"),{
+                chatting,
+                createdAt: Date.now(),
+                username: user.displayName || "Anonymous",
+                userId: user.uid,
+            });
+
+        } catch (e) {
+            console.log(e);    
+        } finally{
+            setLoading(false);
+        }
+    };
+
     return <Wrapper>
         <Menu />
-        <ChatInput 
-            // required
-            // onChange={onChatting}
-            // value={chatting}
-        />
-        <SendButton type="submit" value={isLoading ? "전송" : "전송"}/>
+        <Form onSubmit={onSending}>
+            <ChatInput 
+                type="text"
+                required
+                maxLength={50}
+                onChange={onChatting}
+                value={chatting}
+                placeholder="채팅을 입력하세요"
+            />
+            <SendButton type="submit" value={isLoading ? "전송" : "전송"}/>
+        </Form>
+
     </Wrapper>;
 }
