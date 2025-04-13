@@ -3,6 +3,7 @@ import Menu from "../components/menu";
 import { useState } from "react";
 import { auth, db } from "../firebase";
 import { addDoc, collection } from "firebase/firestore";
+import Chattingtimeline from "../components/chatting-timeline";
 
 
 
@@ -10,7 +11,10 @@ const Wrapper = styled.div`
     display: flex;
     justify-content: center;
 `;
-
+const Column = styled.div`
+    display: flex;
+    flex-direction: column;
+`;
 const Form = styled.form`
     display: flex;
     margin-top: 30px;
@@ -73,17 +77,21 @@ export default function Chat() {
 
     return <Wrapper>
         <Menu />
-        <Form onSubmit={onSending}>
-            <ChatInput 
-                type="text"
-                required
-                maxLength={50}
-                onChange={onChatting}
-                value={chatting}
-                placeholder="채팅을 입력하세요"
-            />
-            <SendButton type="submit" value={isLoading ? "전송" : "전송"}/>
-        </Form>
+        <Column>
+            <Chattingtimeline/>
+            <Form onSubmit={onSending}>
+                <ChatInput 
+                    type="text"
+                    required
+                    maxLength={50}
+                    onChange={onChatting}
+                    value={chatting}
+                    placeholder="채팅을 입력하세요"
+                />
+                <SendButton type="submit" value={isLoading ? "전송" : "전송"}/>
+            </Form>
+        </Column>
+        
 
     </Wrapper>;
 }
