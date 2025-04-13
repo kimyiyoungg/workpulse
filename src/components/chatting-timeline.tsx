@@ -1,4 +1,4 @@
-import { collection, getDocs, orderBy, query } from "firebase/firestore";
+import { collection, getDocs, onSnapshot, orderBy, query } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import { db } from "../firebase";
@@ -21,18 +21,33 @@ export default function Chattingtimeline() {
       collection(db, "chatting"),
       orderBy("createdAt", "asc")
     );
-    const spanshot = await getDocs(chattingsQuery);
-    const chattings = spanshot.docs.map((doc) => {
-    const {chatting, createdAt, userId, username} = doc.data();
-      return {
-        chatting,
-        createdAt,
-        userId,
-        username,
-        id: doc.id,
-      };
-    });
+    // const spanshot = await getDocs(chattingsQuery);
+    // const chattings = spanshot.docs.map((doc) => {
+    // const {chatting, createdAt, userId, username} = doc.data();
+    //   return {
+    //     chatting,
+    //     createdAt,
+    //     userId,
+    //     username,
+    //     id: doc.id,
+    //   };
+    // });
+    await onSnapshot(chattingsQuery,(snapshot)=>{
+      const chattings = snapshot.docs.map(
+        (doc) => {
+          const {chatting, createdAt, userId, username} = doc.data();
+            return {
+              chatting,
+              createdAt,
+              userId,
+              username,
+              id: doc.id,
+            };
+        }        
+      );
     setchattings(chattings);
+    });
+    
   };
   useEffect(() => {
     fetchChattings();
