@@ -1,26 +1,26 @@
 import styled from "styled-components";
 
 const Wrapper = styled.div`
-  max-width: 700px;
-  margin: 0 auto;
-  padding: 20px;
+  width: 100%;
+  padding: 16px;
   background: #fff;
-  border-radius: 12px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  margin-top: 20px;
 `;
 
 const Title = styled.h2`
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 20px;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 16px;
 `;
 
 const Section = styled.div`
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 `;
 
 const SectionTitle = styled.h3`
-  font-size: 20px;
+  font-size: 15px;
   font-weight: bold;
   margin-bottom: 10px;
 `;
