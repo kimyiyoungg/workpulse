@@ -2,6 +2,7 @@ import { styled } from "styled-components";
 import { IChatting } from "./chatting-timeline";
 import { auth } from "../firebase";
 
+
 // Row 컴포넌트에서 isUserMessage prop을 명시적으로 처리하도록 타입을 추가합니다.
 const Wrapper = styled.div`
   padding: 10px;

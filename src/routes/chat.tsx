@@ -122,7 +122,6 @@ export default function Chat() {
         scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
       }
     }, [chatting]);
-
     
     const onChatting = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setChatting(e.target.value);
